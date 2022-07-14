@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Reservation review</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/photos/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="/"><img src="photos/logo.jpg" style="width: 70px"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link"  href="/view/rezervacii">Reservations <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/view/linii">Lines <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="/view/mesec_godina">Reservations by month report<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="/view/najcesti_linii">Line reservation report <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="/view/patnici">Passenger report <span class="sr-only"></span></a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="#">
+                    <th:block th:if="${#request.getRemoteUser() != null}"
+                              th:text="${#request.getRemoteUser()}"></th:block>
+                </a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="btn btn-light btn-sm ml-3" href="/logout">
+                    <i class="fa fa-shopping-cart"></i> Logout
+                </a>
+            </li>
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="btn btn-light btn-sm ml-3" href="/login">
+                    <i class="fa fa-shopping-cart"></i> Login
+                </a>
+            </li>
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="btn btn-light btn-sm ml-3" href="/register">
+                    <i class="fa fa-shopping-cart"></i> Register
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+<div class="banner2">
+
+</div>
+<div class="orange_line">
+</div>
+<div class="container">
+    <div class="spacer" >
+        <form action="/rezervacija" method="post" class="form_group" style="background-color: white">
+            <div class="spacer5">
+            <div class="row spacer5">
+                <div class="tekst col-md-4">
+                    From:
+                </div>
+                <div class="tekst col-md-8">
+                    <th:block th:text="${session.from}"/>
+                </div>
+            </div>
+            <div class="row spacer5">
+                <div class="tekst col-md-4">
+                    To:
+                </div>
+                <div class="tekst col-md-8">
+                    <th:block th:text="${session.to}"/>
+                </div>
+            </div>
+            <div class="row spacer5">
+                <div class="tekst col-md-4">
+                    Date & Time:
+                </div>
+                <div class="tekst col-md-8">
+                    <th:block  th:text="${#temporals.format(session.let.getDatum_vreme(), 'dd-MM-yyyy  HH:mm z')}"></th:block>
+                </div>
+            </div>
+                <div class="row spacer5">
+                    <div class="tekst col-md-4">
+                        Seat Number:
+                    </div>
+                    <div class="tekst col-md-8">
+                        <th:block  th:text="${session.seat}"></th:block>
+                    </div>
+                </div>
+                <div class="row spacer5">
+                    <div class="tekst col-md-4">
+                        Luggage:
+                    </div>
+                    <div class="tekst col-md-8">
+                        <th:block  th:text="${session.luggage}"></th:block>
+                    </div>
+                </div>
+            <div class="row spacer5">
+                <div class="tekst col-md-4">
+                    Price:
+                </div>
+                <div class="tekst col-md-8">
+                    <th:block th:if="${session.price!=null}" th:text="${session.let.getCena()+session.price}"/>
+                    <th:block th:if="${session.price==null}" th:text="${session.let.getCena()}"/>
+                </div>
+            </div>
+            <div class="row spacer5">
+                <div class="tekst col-md-4">
+                    Name:
+                </div>
+                <div class="tekst col-md-8">
+                    <th:block th:text="${session.name}"/>
+                </div>
+            </div>
+            <div class="row spacer5">
+                <div class="tekst col-md-4">
+                    Surname:
+                </div>
+                <div class="tekst col-md-8">
+                    <th:block th:text="${session.surename}"/>
+                </div>
+            </div>
+            <div class="row spacer5">
+                <div class="tekst col-md-4">
+                    Passport Number:
+                </div>
+                <div class="tekst col-md-8">
+                    <th:block th:text="${session.passportNumber}"/>
+                </div>
+            </div>
+            <div class="row spacer5">
+                <div class="tekst col-md-4">
+                    Country:
+                </div>
+                <div class="tekst col-md-8">
+                    <th:block th:text="${session.country}"/>
+                </div>
+            </div>
+
+                <div class="row spacer">
+                    <a href="/edit-rezervacija" class="btn btn-primary">Edit reservation</a>
+                    <span style="width: 20px"></span>
+                    <button type="submit" id="submit" name="submit" class="btn btn-success">Finish</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

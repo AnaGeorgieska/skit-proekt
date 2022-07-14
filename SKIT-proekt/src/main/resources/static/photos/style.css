@@ -1,0 +1,42 @@
+.banner{
+    background-image: url("banner.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    height: 360px;
+}
+.banner2{
+    background-image: url("banner.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    height: 180px;
+}
+.spacer{
+    padding: 10%;
+}
+.spacer5{
+    padding: 5%;
+}
+.spacerUpDown{
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+body{
+    background-color: #e3f2fd;
+}
+.orange_line{
+    height: 5px;
+    background-color: #ffa938;
+}
+.form_group{
+    border: 2px solid #ffa938 ;
+    border-radius: 20px;
+}
+.tekst{
+    font-size: 17px;
+    font-weight: 600;
+}
+a{
+    text-decoration: none;
+}

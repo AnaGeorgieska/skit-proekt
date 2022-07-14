@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Welcome and choose your flight</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/photos/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="/"><img src="../../photos/logo.jpg" style="width: 70px"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link"  href="/view/rezervacii">Reservations <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/view/linii">Lines <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="/view/mesec_godina">Reservations by month report<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="/view/najcesti_linii">Line reservation report <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="/view/patnici">Passenger report <span class="sr-only"></span></a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="#">
+                    <th:block th:if="${#request.getRemoteUser() != null}"
+                              th:text="${#request.getRemoteUser()}"></th:block>
+                </a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="btn btn-light btn-sm ml-3" href="/logout">
+                    <i class="fa fa-shopping-cart"></i> Logout
+                </a>
+            </li>
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="btn btn-light btn-sm ml-3" href="/login">
+                    <i class="fa fa-shopping-cart"></i> Login
+                </a>
+            </li>
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="btn btn-light btn-sm ml-3" href="/register">
+                    <i class="fa fa-shopping-cart"></i> Register
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+<div class="banner2">
+
+</div>
+<div class="orange_line">
+</div>
+<div class="container">
+    <div  class="spacerUpDown">
+        <table class="table table-hover" style="background-color: white">
+            <thead>
+            <tr>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Date & Time</th>
+                <th scope="col">Price</th>
+                <th scope="col">Aeroplane</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="l : ${letovi}">
+                    <td><th:block th:text="${l.getDestinacija_od()}"/></td>
+                    <td><th:block th:text="${l.getDestinacija_do()}"/></td>
+                <td><th:block  th:text="${#temporals.format(l.getDatum_vreme(), 'dd-MM-yyyy  HH:mm z')}"></th:block></td>
+                <td><th:block th:text="${l.getCena()}"/></td>
+                <td><th:block th:text="${l.getTip_avion()}"/></td>
+                <td> <a th:href="@{'/edit-flight/{id}/{id_let}' (id=${l.getId_linija()}, id_let=${l.getIdLet()})}"
+                        sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary">Edit flight</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{'/add-flight/{id}' (id=${letovi.get(0).getId_linija()})}"
+           sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary">Add new flight</a>
+
+    </div>
+
+</div>
+</body>
+</html>
+

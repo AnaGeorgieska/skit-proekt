@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LetServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">mk.ukim.finki.bazi_proekt.avio_kompanija.service.implementations</a>
+</div>
+
+<h1>Coverage Summary for Class: LetServiceImpl (mk.ukim.finki.bazi_proekt.avio_kompanija.service.implementations)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LetServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LetServiceImpl$MockitoMock$121954815</td>
+  </tr>
+  <tr>
+    <td class="name">LetServiceImpl$MockitoMock$121954815$auxiliary$fcQ9JhdW</td>
+  </tr>
+  <tr>
+    <td class="name">LetServiceImpl$MockitoMock$121954815$auxiliary$Kt7PxTjJ</td>
+  </tr>
+  <tr>
+    <td class="name">LetServiceImpl$MockitoMock$121954815$auxiliary$oV2jQS2Y</td>
+  </tr>
+  <tr>
+    <td class="name">LetServiceImpl$MockitoMock$121954815$auxiliary$PCc98KXs</td>
+  </tr>
+  <tr>
+    <td class="name">LetServiceImpl$MockitoMock$121954815$auxiliary$z5pIQXpj</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package mk.ukim.finki.bazi_proekt.avio_kompanija.service.implementations;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import mk.ukim.finki.bazi_proekt.avio_kompanija.model.Let;
+<i class="no-highlight">4</i>&nbsp;import mk.ukim.finki.bazi_proekt.avio_kompanija.model.Linija;
+<i class="no-highlight">5</i>&nbsp;import mk.ukim.finki.bazi_proekt.avio_kompanija.repository.LetRepository;
+<i class="no-highlight">6</i>&nbsp;import mk.ukim.finki.bazi_proekt.avio_kompanija.service.interfaces.LetService;
+<i class="no-highlight">7</i>&nbsp;import org.springframework.stereotype.Service;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;import java.util.List;
+<i class="no-highlight">10</i>&nbsp;import java.util.Optional;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;@Service
+<i class="no-highlight">13</i>&nbsp;public class LetServiceImpl implements LetService {
+<i class="no-highlight">14</i>&nbsp;    private final LetRepository letRepository;
+<i class="no-highlight">15</i>&nbsp;
+<b class="fc"><i class="no-highlight">16</i>&nbsp;    public LetServiceImpl(LetRepository letRepository) {</b>
+<b class="fc"><i class="no-highlight">17</i>&nbsp;        this.letRepository = letRepository;</b>
+<i class="no-highlight">18</i>&nbsp;    }
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    @Override
+<i class="no-highlight">21</i>&nbsp;    public List&lt;Let&gt; findByLinija(Linija linija) {
+<b class="fc"><i class="no-highlight">22</i>&nbsp;        return letRepository.findByLinija(linija);</b>
+<i class="no-highlight">23</i>&nbsp;    }
+<i class="no-highlight">24</i>&nbsp;
+<i class="no-highlight">25</i>&nbsp;    @Override
+<i class="no-highlight">26</i>&nbsp;    public Optional&lt;Let&gt; findById(Integer id) {
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        return letRepository.findById(id);</b>
+<i class="no-highlight">28</i>&nbsp;    }
+<i class="no-highlight">29</i>&nbsp;
+<i class="no-highlight">30</i>&nbsp;    @Override
+<i class="no-highlight">31</i>&nbsp;    public Let save(Let let) {
+<b class="fc"><i class="no-highlight">32</i>&nbsp;       return letRepository.save(let);</b>
+<i class="no-highlight">33</i>&nbsp;    }
+<i class="no-highlight">34</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-07-14 18:06</div>
+</div>
+</body>
+</html>
